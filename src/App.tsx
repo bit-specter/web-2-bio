@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import meImage from "./assets/images/me.png";
+import meImage from "./assets/images/me.webp";
 import "./Biodata.css";
 
 const TypingText = ({ text }: { text: string }) => {
@@ -51,84 +51,84 @@ function App() {
       title: "Inception",
       year: 2010,
       imageUrl:
-        "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+        "https://image.tmdb.org/t/p/w342/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
     },
     {
       id: 2,
       title: "Interstellar",
       year: 2014,
       imageUrl:
-        "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+        "https://image.tmdb.org/t/p/w342/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
     },
     {
       id: 3,
       title: "The Dark Knight",
       year: 2008,
       imageUrl:
-        "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+        "https://image.tmdb.org/t/p/w342/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
     },
     {
       id: 4,
       title: "Avatar",
       year: 2009,
       imageUrl:
-        "https://image.tmdb.org/t/p/w500/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg",
+        "https://image.tmdb.org/t/p/w342/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg",
     },
     {
       id: 5,
       title: "The Matrix",
       year: 1999,
       imageUrl:
-        "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+        "https://image.tmdb.org/t/p/w342/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
     },
     {
       id: 6,
       title: "The Lord of the Rings",
       year: 2001,
       imageUrl:
-        "https://image.tmdb.org/t/p/w500/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",
+        "https://image.tmdb.org/t/p/w342/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",
     },
     {
       id: 7,
       title: "The Transporter",
       year: 2002,
       imageUrl:
-        "https://image.tmdb.org/t/p/w600_and_h900_face/dncJ81z1BahrT3ogLvlxOUC5n4u.jpg",
+        "https://image.tmdb.org/t/p/w342/dncJ81z1BahrT3ogLvlxOUC5n4u.jpg",
     },
     {
       id: 8,
       title: "Fast Five",
       year: 2011,
       imageUrl:
-        "https://image.tmdb.org/t/p/w600_and_h900_face/vDztZS30sheoqnJnKyO4QMnf3f8.jpg",
+        "https://image.tmdb.org/t/p/w342/vDztZS30sheoqnJnKyO4QMnf3f8.jpg",
     },
     {
       id: 9,
       title: "The Mechanic",
       year: 2011,
       imageUrl:
-        "https://image.tmdb.org/t/p/w600_and_h900_face/i8IcT4oBKL793qyo91P1RnhroiQ.jpg",
+        "https://image.tmdb.org/t/p/w342/i8IcT4oBKL793qyo91P1RnhroiQ.jpg",
     },
     {
       id: 10,
       title: "Furious 7",
       year: 2015,
       imageUrl:
-        "https://image.tmdb.org/t/p/w600_and_h900_face/ktofZ9Htrjiy0P6LEowsDaxd3Ri.jpg",
+        "https://image.tmdb.org/t/p/w342/ktofZ9Htrjiy0P6LEowsDaxd3Ri.jpg",
     },
     {
       id: 11,
       title: "Fast & Furious Presents: Hobbs & Shaw",
       year: 2019,
       imageUrl:
-        "https://image.tmdb.org/t/p/w600_and_h900_face/qRyy2UmjC5ur9bDi3kpNNRCc5nc.jpg",
+        "https://image.tmdb.org/t/p/w342/qRyy2UmjC5ur9bDi3kpNNRCc5nc.jpg",
     },
     {
       id: 12,
       title: "The Meg",
       year: 2018,
       imageUrl:
-        "https://image.tmdb.org/t/p/w600_and_h900_face/eyWICPcxOuTcDDDbTMOZawoOn8d.jpg",
+        "https://image.tmdb.org/t/p/w342/eyWICPcxOuTcDDDbTMOZawoOn8d.jpg",
     },
   ];
 
@@ -194,13 +194,16 @@ function App() {
       animate="visible"
       variants={containerVariants}
     >
-      <div className="layout-wrapper">
+      <main className="layout-wrapper">
         <motion.div className="left-column" variants={itemVariants}>
           <img
             src={meImage}
             alt="Me"
+            width="507"
+            height="902"
             draggable={false}
             className="hero-image"
+            fetchPriority="high"
           />
         </motion.div>
 
@@ -272,9 +275,15 @@ function App() {
                 >
                   <div className="movie-year">{movie.year}</div>
                   <img
-                    src={movie.imageUrl}
+                    src={movie.imageUrl.replace("w342", "w185")}
+                    srcSet={`${movie.imageUrl.replace("w342", "w154")} 154w, ${movie.imageUrl.replace("w342", "w185")} 185w, ${movie.imageUrl} 342w`}
+                    sizes="145px"
+                    width="145"
+                    height="218"
                     draggable={false}
                     alt={movie.title}
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="movie-info">
                     <h3>{movie.title}</h3>
@@ -376,7 +385,7 @@ function App() {
             </a>
           </div>
         </div>
-      </div>
+      </main>
 
       <AnimatePresence>
         {zodiacResult && (
@@ -385,6 +394,7 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={() => setZodiacResult(null)}
           >
             <motion.div
               className="custom-alert-box"
@@ -392,6 +402,7 @@ function App() {
               initial="hidden"
               animate="visible"
               exit="exit"
+              onClick={(e) => e.stopPropagation()}
             >
               <h3>Zodiak Saya</h3>
               <p>{zodiacResult}</p>
