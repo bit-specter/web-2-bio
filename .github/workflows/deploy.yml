@@ -1,0 +1,53 @@
+name: Deploy to GitHub Pages
+
+# Menjalankan workflow setiap ada push ke branch main atau dijalankan manual
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+# Memberikan izin (permissions) pada GITHUB_TOKEN untuk proses deploy
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Memastikan hanya ada satu proses deploy yang berjalan dalam satu waktu
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # Job pertama: Melakukan Build project React Vite
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install
+      - name: Build project
+        run: npm run build
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' # Folder output default dari Vite
+
+  # Job kedua: Men-deploy hasil build ke GitHub Pages
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
