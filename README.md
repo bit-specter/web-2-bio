@@ -21,11 +21,11 @@ Aplikasi web biodata interaktif yang dibangun menggunakan React, TypeScript, dan
 1. Pastikan komputer Anda telah terinstal Node.js.
 2. Lakukan clone pada repositori ini:
    ```bash
-   git clone <URL_REPOSITORI_ANDA>
+   git clone https://github.com/bit-specter/web-2-bio.git
    ```
 3. Pindah ke dalam direktori proyek:
    ```bash
-   cd tugas-biodata-web-2-react
+   cd web-2-bio
    ```
 4. Instal semua dependensi yang dibutuhkan:
    ```bash
